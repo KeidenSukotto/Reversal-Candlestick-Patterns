@@ -1,0 +1,106 @@
+//@version=5
+indicator("Reversal Candlestick Patterns", overlay=true)
+
+// =====================================================================================================================
+//                                                                                                                     |
+//                                                     BULLISH                                                         |
+//                                                                                                                     |
+// =====================================================================================================================
+
+isBullishHammer() =>
+    body = close - open
+    lowerShadow = open - low
+    upperShadow = high - close
+    body <= 0 and lowerShadow >= 2 * math.abs(body) and upperShadow <= 0.1 * math.abs(body)
+plotshape(barstate.isconfirmed and isBullishHammer(), title="Bullish Hammer", text="Bullish Hammer", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishInvertedHammer() =>
+    body = close - open
+    upperShadow = high - close
+    lowerShadow = open - low
+    body <= 0 and upperShadow >= 2 * math.abs(body) and lowerShadow <= 0.1 * math.abs(body)
+plotshape(barstate.isconfirmed and isBullishInvertedHammer(), title="Bullish Inverted Hammer", text="Bullish Inverted Hammer", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishEngulfing() =>
+    open[1] > close[1] and open < close and open < close[1] and close > open[1]
+plotshape(barstate.isconfirmed and isBullishEngulfing(), title="Bullish Engulfing", text="Bullish Engulfing", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishMorningStar() =>
+    candle1 = close[2] < open[2]
+    candle2 = math.abs(close[1] - open[1]) < (high[1] - low[1]) * 0.1
+    candle3 = close > open
+    candle1 and candle2 and candle3 and close > open[2]
+plotshape(barstate.isconfirmed and isBullishMorningStar(), title="Bullish Morning Star", text="Bullish Morning Star", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishPiercingLine() =>
+    open < close[1] and close > open[1] and close > close[1] and open < close[1]
+plotshape(barstate.isconfirmed and isBullishPiercingLine(), title="Bullish Piercing Line", text="Bullish Piercing Line", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishThreeWhiteSoldiers() =>
+    close[2] < open[2] and close[1] < open[1] and close > open and close[1] > open[1] and close[2] < open[2]
+plotshape(barstate.isconfirmed and isBullishThreeWhiteSoldiers(), title="Bullish Three White Soldiers", text="Bullish 3WS", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishTweezerBottom() =>
+    low == low[1] and close > open and close[1] < open[1]
+plotshape(barstate.isconfirmed and isBullishTweezerBottom(), title="Bullish Tweezer Bottom", text="Bullish Tweezer Bottom", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishHarami() =>
+    open[1] > close[1] and open < close and close < open[1] and close > open[1]
+plotshape(barstate.isconfirmed and isBullishHarami(), title="Bullish Harami", text="Bullish Harami", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishDojiStar() =>
+    close[2] < open[2] and math.abs(close[1] - open[1]) < (high[1] - low[1]) * 0.1 and close > open
+plotshape(barstate.isconfirmed and isBullishDojiStar(), title="Bullish Doji Star", text="Bullish Doji Star", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+isBullishCounterattack() =>
+    open[1] > close[1] and close > open and close > open[1] and close < close[1]
+plotshape(barstate.isconfirmed and isBullishCounterattack(), title="Bullish Counterattack", text="Bullish Counterattack", color=color.lime, textcolor=color.black, style=shape.triangleup, location=location.belowbar, size=size.small)
+
+
+// =====================================================================================================================
+//                                                                                                                     |
+//                                                     BEARISH                                                         |
+//                                                                                                                     |
+// =====================================================================================================================
+
+isBearishShootingStar() =>
+    body = close - open
+    upperShadow = high - close
+    lowerShadow = open - low
+    body >= 0 and upperShadow >= 2 * math.abs(body) and lowerShadow <= 0.1 * math.abs(body)
+plotshape(barstate.isconfirmed and isBearishShootingStar(), title="Bearish Shooting Star", text="Bearish Shooting Star", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishEngulfing() =>
+    open[1] < close[1] and open > close and open > close[1] and close < open[1]
+plotshape(barstate.isconfirmed and isBearishEngulfing(), title="Bearish Engulfing", text="Bearish Engulfing", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishEveningStar() =>
+    candle1 = close[2] > open[2]
+    candle2 = math.abs(close[1] - open[1]) < (high[1] - low[1]) * 0.1
+    candle3 = close < open
+    candle1 and candle2 and candle3 and close < open[2]
+plotshape(barstate.isconfirmed and isBearishEveningStar(), title="Bearish Evening Star", text="Bearish Evening Star", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishDarkCloudCover() =>
+    open > close[1] and close < open[1] and close < close[1] and open > close[1]
+plotshape(barstate.isconfirmed and isBearishDarkCloudCover(), title="Bearish Dark Cloud Cover", text="Bearish Dark Cloud Cover", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishThreeBlackCrows() =>
+    close[2] > open[2] and close[1] > open[1] and close < open and close[1] < open[1] and close[2] > open[2]
+plotshape(barstate.isconfirmed and isBearishThreeBlackCrows(), title="Bearish Three Black Crows", text="Bearish 3BC", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishTweezerTop() =>
+    high == high[1] and close < open and close[1] > open[1]
+plotshape(barstate.isconfirmed and isBearishTweezerTop(), title="Bearish Tweezer Top", text="Bearish Tweezer Top", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishHarami() =>
+    open[1] < close[1] and open > close and close > open[1] and close < open[1]
+plotshape(barstate.isconfirmed and isBearishHarami(), title="Bearish Harami", text="Bearish Harami", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishDojiStar() =>
+    close[2] > open[2] and math.abs(close[1] - open[1]) < (high[1] - low[1]) * 0.1 and close < open
+plotshape(barstate.isconfirmed and isBearishDojiStar(), title="Bearish Doji Star", text="Bearish Doji Star", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
+
+isBearishCounterattack() =>
+    open[1] < close[1] and close < open and close < open[1] and close > close[1]
+plotshape(barstate.isconfirmed and isBearishCounterattack(), title="Bearish Counterattack", text="Bearish Counterattack", color=color.red, textcolor=color.black, style=shape.triangledown, location=location.abovebar, size=size.small)
