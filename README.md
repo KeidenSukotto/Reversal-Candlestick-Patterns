@@ -27,7 +27,7 @@ A Pine Script indicator for identifying popular bullish and bearish reversal can
   - Bearish Counterattack
 
 ## Usage
-1. Copy the script from `ReversalCandlestickPatterns.pine`.
+1. Copy the script from `script.pine`.
 2. Paste it into a new Pine Script editor window in TradingView.
 3. Save and add it to your chart.
 
